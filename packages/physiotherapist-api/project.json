@@ -1,0 +1,64 @@
+{
+  "name": "physiotherapist-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/physiotherapist-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/packages/physiotherapist-api",
+        "main": "packages/physiotherapist-api/src/main.ts",
+        "tsConfig": "packages/physiotherapist-api/tsconfig.app.json",
+        "assets": ["packages/physiotherapist-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "packages/physiotherapist-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "physiotherapist-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "physiotherapist-api:build:development"
+        },
+        "production": {
+          "buildTarget": "physiotherapist-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/physiotherapist-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/physiotherapist-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
