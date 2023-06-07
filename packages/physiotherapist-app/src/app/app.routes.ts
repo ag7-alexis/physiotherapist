@@ -20,24 +20,28 @@ const isAuthGuard: CanActivateFn = (
 ) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const isAuth = authService.isAuth();
 
-  return (
-    isAuth ||
-    router.navigate(['/login'], {
-      queryParams: {
-        return: state.url,
-      },
-    })
+  return authService.user$.pipe(
+    map(
+      (u) =>
+        present(u) ||
+        router.createUrlTree(['/login'], {
+          queryParams: {
+            return: state.url,
+          },
+        })
+    )
   );
 };
 
 const isNotAuthGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const isNotAuth = false === authService.isAuth();
 
-  return isNotAuth || router.navigate(['/']);
+  return authService.user$.pipe(
+    tap(console.log),
+    map((u) => absent(u) || router.createUrlTree(['/']))
+  );
 };
 
 export const appRoutes: Route[] = [

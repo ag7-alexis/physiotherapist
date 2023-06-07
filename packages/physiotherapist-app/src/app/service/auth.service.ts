@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User, present } from '@physiotherapist/shared';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user$ = new BehaviorSubject<User | undefined>(undefined);
+  user$ = new Subject<User | undefined>();
 
   constructor(private http: HttpClient) {
     this.checkAuth();
@@ -45,14 +45,19 @@ export class AuthService {
   }
 
   checkAuth() {
-    this.http
-      .get<User>('/api/auth/check')
-      .pipe(
-        tap({
-          next: (user) => this.user$.next(user),
-          error: () => this.user$.next(undefined),
-        })
-      )
-      .subscribe();
+    try {
+      this.http
+        .get<User>('/api/auth/check')
+        .pipe(
+          tap({
+            next: (user) => this.user$.next(user),
+            error: () => this.user$.next(undefined),
+          })
+        )
+        .subscribe();
+    } catch (e) {
+      console.log({ e });
+      this.user$.next(undefined);
+    }
   }
 }
