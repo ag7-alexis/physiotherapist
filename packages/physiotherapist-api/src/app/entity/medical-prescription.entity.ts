@@ -36,7 +36,7 @@ export class MedicalPrescriptionEntity
   @Column({ name: 'mpn_commentary' })
   commentary: string | undefined;
 
-  @Column({ name: 'mpn_patient_uuid' })
+  @Column({ name: 'mpn_patient_uuid', type: 'uuid' })
   patientUuid: string;
 
   @ManyToOne(() => PatientEntity, { nullable: true, onDelete: 'CASCADE' })

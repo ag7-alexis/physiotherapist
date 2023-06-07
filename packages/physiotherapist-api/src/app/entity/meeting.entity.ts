@@ -42,7 +42,7 @@ export class MeetingEntity extends BaseEntity implements Meeting {
   @Column({ name: 'm_start_date' })
   startDate: Date;
 
-  @Column({ name: 'm_start_date' })
+  @Column({ name: 'm_expected_end_date' })
   expectedEndDate: Date;
 
   @Column({ name: 'm_end_date' })
@@ -51,21 +51,21 @@ export class MeetingEntity extends BaseEntity implements Meeting {
   @Column({ name: 'm_commentary' })
   commentary: string;
 
-  @Column({ name: 'm_patient_uuid' })
+  @Column({ name: 'm_patient_uuid', type: 'uuid' })
   patientUuid: string;
 
   @ManyToOne(() => PatientEntity, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'm_patient_uuid', referencedColumnName: 'uuid' })
   patient: Patient;
 
-  @Column({ name: 'm_practitioner_uuid' })
+  @Column({ name: 'm_practitioner_uuid', type: 'uuid' })
   practitionerUuid: string;
 
   @ManyToOne(() => PractitionerEntity, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'm_practitioner_uuid', referencedColumnName: 'uuid' })
   practitioner: Practitioner;
 
-  @Column({ name: 'm_medical_prescription_uuid' })
+  @Column({ name: 'm_medical_prescription_uuid', type: 'uuid' })
   medicalPrescriptionUuid: string;
 
   @ManyToOne(() => MedicalPrescriptionEntity, {
@@ -78,7 +78,7 @@ export class MeetingEntity extends BaseEntity implements Meeting {
   })
   medicalPrescription: MedicalPrescription;
 
-  @Column({ name: 'm_medical_procedure_uuid' })
+  @Column({ name: 'm_medical_procedure_uuid', type: 'uuid' })
   medicalProcedureUuid: string;
 
   @ManyToOne(() => MedicalProcedureEntity, {

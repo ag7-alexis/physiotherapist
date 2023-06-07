@@ -33,7 +33,7 @@ export class MedicalProcedureEntity
   @Column({ name: 'mpe_duration_in_minutes' })
   durationInMinutes: number;
 
-  @Column({ name: 'mpe_practitioner_uuid' })
+  @Column({ name: 'mpe_practitioner_uuid', type: 'uuid' })
   practitionerUuid: string;
 
   @ManyToOne(() => PractitionerEntity, { nullable: true, onDelete: 'CASCADE' })

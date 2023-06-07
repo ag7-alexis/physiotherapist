@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 export function CreationDate(prefix: string) {
   return CreateDateColumn({ name: prefix + '_creation_date' });
@@ -13,7 +19,12 @@ export function Id(prefix: string) {
 }
 
 export function Uuid(prefix: string) {
-  return Column({ name: prefix + '_uuid', generated: 'uuid' });
+  return Column({
+    name: prefix + '_uuid',
+    generated: 'uuid',
+    unique: true,
+    type: 'uuid',
+  });
 }
 
 export function Deleted(prefix: string) {

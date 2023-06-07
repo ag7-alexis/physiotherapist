@@ -65,7 +65,7 @@ export class PractitionerEntity extends BaseEntity implements Practitioner {
   })
   medialProdecudes: MedicalProcedure[];
 
-  @Column({ name: 'pr_user_uuid' })
+  @Column({ name: 'pr_user_uuid', type: 'uuid' })
   userUuid: string;
 
   @OneToOne(() => UserEntity, {
