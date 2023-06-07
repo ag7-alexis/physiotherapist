@@ -8,6 +8,7 @@ import { MeetingModule } from './meeting/meeting.module';
 import { LoggerMiddleware } from '@physiotherapist/shared-nodejs';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
         entities: [...ENTITIES],
       }),
     }),
+    PassportModule,
     AuthModule,
     PractitionerModule,
     PatientModule,

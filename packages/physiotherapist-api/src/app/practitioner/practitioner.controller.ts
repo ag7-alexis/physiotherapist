@@ -1,8 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
 
 import { Crud, CrudController } from '@nestjsx/crud';
 import { PractitionerEntity } from '../entity';
 import { PractitionerService } from './practitioner.service';
+import { JwtAuthGuard } from '@physiotherapist/shared-nodejs';
 
 @Crud({
   model: {
@@ -29,6 +30,7 @@ import { PractitionerService } from './practitioner.service';
   },
 })
 @Controller('practitioner')
+// @UseGuards(JwtAuthGuard)
 export class PractitionerController
   implements CrudController<PractitionerEntity>
 {

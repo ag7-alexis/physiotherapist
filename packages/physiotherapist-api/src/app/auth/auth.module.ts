@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthController } from './auth.controller';
-import { LocalStrategy } from '@physiotherapist/shared-nodejs';
+import { JwtStrategy, LocalStrategy } from '@physiotherapist/shared-nodejs';
 import { UserEntity } from '../entity';
 import { AuthService } from './auth.service';
 
@@ -31,6 +31,7 @@ import { AuthService } from './auth.service';
       },
       inject: [AuthService],
     },
+    JwtStrategy,
   ],
   controllers: [AuthController],
 })

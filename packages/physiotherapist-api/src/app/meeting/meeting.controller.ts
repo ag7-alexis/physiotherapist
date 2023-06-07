@@ -1,8 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
 
 import { Crud, CrudController } from '@nestjsx/crud';
 import { MeetingEntity } from '../entity';
 import { MeetingService } from './meeting.service';
+import { JwtAuthGuard } from '@physiotherapist/shared-nodejs';
 
 @Crud({
   model: {
@@ -35,6 +36,7 @@ import { MeetingService } from './meeting.service';
   },
 })
 @Controller('meeting')
+// @UseGuards(JwtAuthGuard)
 export class MeetingController implements CrudController<MeetingEntity> {
   constructor(public service: MeetingService) {}
 }
