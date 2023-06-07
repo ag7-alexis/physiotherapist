@@ -1,2 +1,3 @@
 export * from './lib/testing';
-export * from './lib/utils';
+export * from './lib/util';
+export * from './lib/model';
