@@ -50,7 +50,7 @@ export class LoginSandbox {
         password: userCredential.password,
       };
       this.authService
-        .register(userCandidate)
+        .login(userCandidate)
         .pipe(
           tap({
             next: () => this.state.update((s) => s.loginSuccess()),
