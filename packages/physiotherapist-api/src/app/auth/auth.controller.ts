@@ -45,6 +45,7 @@ export class AuthController {
     @CurrentUser() userCandidate: User,
     @Response({ passthrough: true }) res
   ) {
+    console.log({ userCandidate });
     const { user } = await this.authService.login(res, userCandidate);
 
     return user;
