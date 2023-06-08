@@ -16,10 +16,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './page/home/home.component';
 import { LoginComponent } from './page/login/login.component';
 import { RegisterComponent } from './page/register/register.component';
+import { TabBarComponent } from './components/tabBar/tab-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './service/auth.service';
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { TuiLetModule } from '@taiga-ui/cdk';
+import {TuiTabBarModule} from '@taiga-ui/addon-mobile';
 import {
   TuiAvatarModule,
   TuiHighlightModule,
@@ -42,6 +44,7 @@ import { Observable, of } from 'rxjs';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    TabBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { Observable, of } from 'rxjs';
     TuiTableModule,
     TuiLetModule,
     TuiDialogModule,
+    TuiTabBarModule,
   ],
   providers: [
     // {
