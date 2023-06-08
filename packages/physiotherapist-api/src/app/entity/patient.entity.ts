@@ -55,11 +55,11 @@ export class PatientEntity extends BaseEntity implements Patient {
   zipcodeAddress: string;
 
   @ApiProperty()
-  @Column({ name: 'pt_latitude_address' })
+  @Column({ name: 'pt_latitude_address', type: 'float' })
   latAddress: number;
 
   @ApiProperty()
-  @Column({ name: 'pt_longitude_address' })
+  @Column({ name: 'pt_longitude_address', type: 'float' })
   lonAddress: number;
 
   @ApiProperty()

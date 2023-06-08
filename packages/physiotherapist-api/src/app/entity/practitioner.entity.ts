@@ -59,11 +59,11 @@ export class PractitionerEntity extends BaseEntity implements Practitioner {
   zipcodeAddress: string;
 
   @ApiProperty()
-  @Column({ name: 'pr_latitude_address' })
+  @Column({ name: 'pr_latitude_address', type: 'float' })
   latAddress: number;
 
   @ApiProperty()
-  @Column({ name: 'pr_longitude_address' })
+  @Column({ name: 'pr_longitude_address', type: 'float' })
   lonAddress: number;
 
   @ApiProperty()
