@@ -105,6 +105,10 @@ export class HomeComponent {
     // );
   }
 
+  openInfo(marker: any, content: string) {
+    console.log({ marker, content });
+  }
+
   log(l: any) {
     console.log(l);
   }

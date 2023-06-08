@@ -7,11 +7,11 @@
 
     <div *ngFor="let marker of directionsResults.markers">
       <map-marker
-        #marker="mapMarker"
+        #markerElem="mapMarker"
         [position]="marker.position"
         [options]="marker.option"
         (click)="log('marker')"
-        (mapClick)="log('marker')"
+        (mapClick)="openInfo(markerElem, 'eeee')"
       >
       </map-marker>
     </div>
