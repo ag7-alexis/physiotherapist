@@ -1,1 +1,19 @@
-<p>home works!</p>
+<google-map height="100vh" width="100vw" [center]="center" [zoom]="zoom">
+  <ng-container *ngIf="directionsResults$ | async as directionsResults">
+    <map-directions-renderer
+      [directions]="directionsResults.directionResult!"
+      [options]="option"
+    ></map-directions-renderer>
+
+    <div *ngFor="let marker of directionsResults.markers">
+      <map-marker
+        #marker="mapMarker"
+        [position]="marker.position"
+        [options]="marker.option"
+        (click)="log('marker')"
+        (mapClick)="log('marker')"
+      >
+      </map-marker>
+    </div>
+  </ng-container>
+</google-map>
