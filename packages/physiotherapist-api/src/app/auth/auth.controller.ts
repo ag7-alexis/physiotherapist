@@ -13,11 +13,23 @@ import {
   CurrentUser,
   JwtAuthGuard,
 } from '@physiotherapist/shared-nodejs';
+import { ApiBody, ApiOkResponse, ApiProperty } from '@nestjs/swagger';
+import { UserEntity } from '../entity';
+
+export class AuthDto {
+  @ApiProperty()
+  emailAddress: string;
+
+  @ApiProperty()
+  password: string;
+}
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiBody({ type: AuthDto })
+  @ApiOkResponse({ status: 200, type: UserEntity })
   @Post('register')
   async register(
     @Body() userData: Partial<User>,
@@ -28,6 +40,8 @@ export class AuthController {
     return user;
   }
 
+  @ApiBody({ type: AuthDto })
+  @ApiOkResponse({ status: 200, type: UserEntity })
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
@@ -39,18 +53,19 @@ export class AuthController {
     return user;
   }
 
+  @ApiOkResponse({ status: 200, type: UserEntity })
   @UseGuards(JwtAuthGuard)
   @Get('check')
   async check(
     @CurrentUser() userCandidate: User,
     @Response({ passthrough: true }) res
   ) {
-    console.log({ userCandidate });
     const { user } = await this.authService.login(res, userCandidate);
 
     return user;
   }
 
+  @ApiOkResponse({ status: 200, type: 'boolean' })
   @UseGuards(JwtAuthGuard)
   @Get('logout')
   logout(@Response({ passthrough: true }) res) {

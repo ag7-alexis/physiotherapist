@@ -4,6 +4,7 @@ import { Crud, CrudController } from '@nestjsx/crud';
 import { PatientEntity } from '../entity';
 import { PatientService } from './patient.service';
 import { JwtAuthGuard } from '@physiotherapist/shared-nodejs';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Crud({
   model: {

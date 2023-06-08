@@ -1,9 +1,17 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, UseInterceptors } from '@nestjs/common';
 
-import { Crud, CrudController } from '@nestjsx/crud';
+import { ApiOkResponse } from '@nestjs/swagger';
+import {
+  Crud,
+  CrudController,
+  CrudRequest,
+  CrudRequestInterceptor,
+  ParsedRequest,
+} from '@nestjsx/crud';
+import { User } from '@physiotherapist/shared';
+import { CurrentUser, JwtAuthGuard } from '@physiotherapist/shared-nodejs';
 import { MeetingEntity } from '../entity';
 import { MeetingService } from './meeting.service';
-import { JwtAuthGuard } from '@physiotherapist/shared-nodejs';
 
 @Crud({
   model: {
@@ -39,4 +47,12 @@ import { JwtAuthGuard } from '@physiotherapist/shared-nodejs';
 // @UseGuards(JwtAuthGuard)
 export class MeetingController implements CrudController<MeetingEntity> {
   constructor(public service: MeetingService) {}
+
+  @Get('my-todays-meetings')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(CrudRequestInterceptor)
+  @ApiOkResponse({ status: 200, type: MeetingEntity, isArray: true })
+  me(@ParsedRequest() req: CrudRequest, @CurrentUser() user: User) {
+    return this.service.getMyTodaysMeetings(user.uuid);
+  }
 }
