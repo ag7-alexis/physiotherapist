@@ -7,6 +7,7 @@ import {
   TuiButtonModule,
   TuiDialogModule,
   TuiErrorModule,
+  TuiNotificationModule,
   TuiRootModule,
   TuiSvgModule,
   TuiTextfieldControllerModule,
@@ -25,6 +26,7 @@ import {
   TuiInputModule,
   TuiInputPasswordModule,
   TuiIslandModule,
+  TuiProgressModule,
 } from '@taiga-ui/kit';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TUI_FRENCH_LANGUAGE, TUI_LANGUAGE } from '@taiga-ui/i18n';
@@ -49,6 +51,14 @@ import { Observable, of } from 'rxjs';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    TuiRootModule,
+
+    TuiTextfieldControllerModule,
+
+    TuiLetModule,
+
+    TuiProgressModule,
+    TuiNotificationModule,
     TuiIslandModule,
     TuiInputModule,
     TuiInputPasswordModule,
