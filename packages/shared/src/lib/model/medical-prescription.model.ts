@@ -1,3 +1,4 @@
+import { Meeting } from './meeting.model';
 import { Model } from './model';
 import { Patient } from './patient.model';
 
@@ -12,4 +13,6 @@ export interface MedicalPrescription extends Model {
 
   patientUuid: string;
   patient: Patient;
+
+  meetings: Meeting[];
 }

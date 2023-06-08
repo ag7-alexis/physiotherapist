@@ -1,4 +1,4 @@
-import { MedicalPrescription, Patient } from '@physiotherapist/shared';
+import { MedicalPrescription, Meeting, Patient } from '@physiotherapist/shared';
 import {
   CreationDate,
   Deleted,
@@ -6,8 +6,16 @@ import {
   UpdateDate,
   Uuid,
 } from '@physiotherapist/shared-nodejs';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { PatientEntity } from './patient.entity';
+import { MeetingEntity } from './meeting.entity';
 
 @Entity({ name: 'medicalprescription_mpn' })
 export class MedicalPrescriptionEntity
@@ -42,6 +50,12 @@ export class MedicalPrescriptionEntity
   @ManyToOne(() => PatientEntity, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'mpn_patient_uuid', referencedColumnName: 'uuid' })
   patient: Patient;
+
+  @OneToMany(() => MeetingEntity, (m) => m.medicalPrescription, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  meetings: Meeting[];
 
   @CreationDate(MedicalPrescriptionEntity.prefix)
   creationDate: Date;

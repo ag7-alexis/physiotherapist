@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -28,7 +28,11 @@ import {
 } from '@taiga-ui/kit';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TUI_FRENCH_LANGUAGE, TUI_LANGUAGE } from '@taiga-ui/i18n';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
+function initializeAppFactory(authService: AuthService): () => Observable<any> {
+  return () => authService.checkAuth();
+}
 
 @NgModule({
   declarations: [
@@ -59,6 +63,12 @@ import { of } from 'rxjs';
     TuiDialogModule,
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAppFactory,
+      deps: [AuthService],
+      multi: true,
+    },
     AuthService,
     {
       provide: TUI_LANGUAGE,

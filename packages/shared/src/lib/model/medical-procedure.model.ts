@@ -1,3 +1,4 @@
+import { Meeting } from './meeting.model';
 import { Model } from './model';
 import { Practitioner } from './practitioner.model';
 
