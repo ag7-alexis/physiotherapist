@@ -44,6 +44,7 @@ const isNotAuthGuard: CanActivateFn = () => {
   );
 };
 
+
 export const appRoutes: Route[] = [
   {
     path: '',

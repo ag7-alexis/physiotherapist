@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@physiotherapist/shared';
-import { BehaviorSubject, EMPTY, Observable, tap } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,9 @@ import { BehaviorSubject, EMPTY, Observable, tap } from 'rxjs';
 export class AuthService {
   user$ = new BehaviorSubject<User | undefined>(undefined);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.checkAuth()
+  }
 
   login(user: Partial<User>): Observable<User> {
     return this.http.post<User>('/api/auth/login', user).pipe(
@@ -31,16 +33,15 @@ export class AuthService {
 
   checkAuth() {
     try {
-      return this.http.get<User>('/api/auth/check').pipe(
+      this.http.get<User>('/api/auth/check').pipe(
         tap({
           next: (user) => this.user$.next(user),
           error: () => this.user$.next(undefined),
         })
-      );
+      ).subscribe();
     } catch (e) {
       console.log({ e });
       this.user$.next(undefined);
-      return EMPTY;
     }
   }
 }

@@ -30,9 +30,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TUI_FRENCH_LANGUAGE, TUI_LANGUAGE } from '@taiga-ui/i18n';
 import { Observable, of } from 'rxjs';
 
-function initializeAppFactory(authService: AuthService): () => Observable<any> {
-  return () => authService.checkAuth();
-}
+// function initializeAppFactory(authService: AuthService): () => Observable<any> {
+//   return () => authService.checkAuth();
+// }
 
 @NgModule({
   declarations: [
@@ -63,12 +63,12 @@ function initializeAppFactory(authService: AuthService): () => Observable<any> {
     TuiDialogModule,
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeAppFactory,
-      deps: [AuthService],
-      multi: true,
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializeAppFactory,
+    //   deps: [AuthService],
+    //   multi: true,
+    // },
     AuthService,
     {
       provide: TUI_LANGUAGE,
