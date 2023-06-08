@@ -13,6 +13,7 @@ import { inject } from '@angular/core';
 import { AuthService } from './service/auth.service';
 import { map, tap } from 'rxjs';
 import { absent, present } from '@physiotherapist/shared';
+import { AppointmentComponent } from './page/appointment/appointment.component';
 
 const isAuthGuard: CanActivateFn = (
   _: ActivatedRouteSnapshot,
@@ -61,6 +62,11 @@ export const appRoutes: Route[] = [
   {
     path: 'register',
     component: RegisterComponent,
+    // canActivate: [isNotAuthGuard],
+  },
+  {
+    path: 'appointment',
+    component: AppointmentComponent,
     // canActivate: [isNotAuthGuard],
   },
 ];

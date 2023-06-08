@@ -29,6 +29,9 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TUI_FRENCH_LANGUAGE, TUI_LANGUAGE } from '@taiga-ui/i18n';
 import { Observable, of } from 'rxjs';
+import { AppointmentComponent } from './page/appointment/appointment.component';
+import {TuiNotificationModule} from '@taiga-ui/core';
+import {TuiBadgeModule} from '@taiga-ui/kit'
 
 // function initializeAppFactory(authService: AuthService): () => Observable<any> {
 //   return () => authService.checkAuth();
@@ -40,6 +43,7 @@ import { Observable, of } from 'rxjs';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    AppointmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,8 @@ import { Observable, of } from 'rxjs';
     TuiTableModule,
     TuiLetModule,
     TuiDialogModule,
+    TuiNotificationModule,
+    TuiBadgeModule,
   ],
   providers: [
     // {
