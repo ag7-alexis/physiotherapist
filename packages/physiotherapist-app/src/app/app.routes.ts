@@ -48,18 +48,18 @@ export const appRoutes: Route[] = [
   {
     path: '',
     component: HomeComponent,
-    canActivate: [isAuthGuard],
+    // canActivate: [isAuthGuard],
   },
 
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [isNotAuthGuard],
+    // canActivate: [isNotAuthGuard],
   },
 
   {
     path: 'register',
     component: RegisterComponent,
-    canActivate: [isNotAuthGuard],
+    // canActivate: [isNotAuthGuard],
   },
 ];
