@@ -1,19 +1,24 @@
-<google-map height="100vh" width="100vw" [center]="center" [zoom]="zoom">
+<google-map
+  height="100vh"
+  width="100vw"
+  [center]="center"
+  [zoom]="zoom"
+  (mapInitialized)="log('ee')"
+>
   <ng-container *ngIf="directionsResults$ | async as directionsResults">
     <map-directions-renderer
       [directions]="directionsResults.directionResult!"
       [options]="option"
     ></map-directions-renderer>
 
-    <div *ngFor="let marker of directionsResults.markers">
-      <map-marker
-        #markerElem="mapMarker"
-        [position]="marker.position"
-        [options]="marker.option"
-        (click)="log('marker')"
-        (mapClick)="openInfo(markerElem, 'eeee')"
-      >
-      </map-marker>
-    </div>
+    <map-marker
+      *ngFor="let marker of directionsResults.markers; let i = index"
+      #markerElem="mapMarker"
+      [position]="marker.position"
+      [options]="marker.option"
+      (click)="log('marker')"
+      (mapClick)="openInfo(markerElem, 'eeee')"
+    >
+    </map-marker>
   </ng-container>
 </google-map>

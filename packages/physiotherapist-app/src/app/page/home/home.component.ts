@@ -1,9 +1,10 @@
 //  <reference types="google.maps" />
 
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { MapDirectionsService } from '@angular/google-maps';
 import { DeepPartial, Meeting } from '@physiotherapist/shared';
 import { Observable, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 
 interface Marker {
   position: google.maps.LatLngLiteral;
@@ -18,6 +19,7 @@ interface Marker {
 export class HomeComponent {
   center: google.maps.LatLngLiteral = { lat: 24, lng: 12 };
   zoom = 4;
+  @ViewChildren('markerElem') private x: any;
 
   readonly directionsResults$: Observable<{
     directionResult: google.maps.DirectionsResult | undefined;
@@ -30,10 +32,12 @@ export class HomeComponent {
       opacity: 0,
       clickable: false,
       draggable: false,
+      position: { lat: 0, lng: 0 },
     },
   };
 
   constructor(mapDirectionsService: MapDirectionsService) {
+    console.log(this.x);
     const meetings: DeepPartial<Meeting>[] = [
       {
         patient: {
@@ -90,7 +94,7 @@ export class HomeComponent {
                   lat: m.patient!.latAddress!,
                   lng: m.patient!.lonAddress!,
                 },
-                option: { draggable: false, clickable: true },
+                option: { draggable: false, clickable: false },
               })
             )
           ),
@@ -105,11 +109,12 @@ export class HomeComponent {
     // );
   }
 
-  openInfo(marker: any, content: string) {
+  openInfo(marker: MapMarker, content: string) {
     console.log({ marker, content });
   }
 
   log(l: any) {
+    console.log(this.x);
     console.log(l);
   }
 }
