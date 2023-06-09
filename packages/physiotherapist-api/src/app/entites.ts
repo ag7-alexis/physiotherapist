@@ -1,4 +1,5 @@
 import {
+  FileEntity,
   MedicalPrescriptionEntity,
   MedicalProcedureEntity,
   MeetingEntity,
@@ -14,4 +15,5 @@ export const ENTITIES = [
   PractitionerEntity,
   MeetingEntity,
   UserEntity,
+  FileEntity,
 ];

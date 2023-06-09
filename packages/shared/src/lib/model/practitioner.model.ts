@@ -1,3 +1,4 @@
+import { File } from './file.model';
 import { MedicalProcedure } from './medical-procedure.model';
 import { Model } from './model';
 import { User } from './user.model';
@@ -19,4 +20,6 @@ export interface Practitioner extends Model {
   user: User;
 
   medialProdecudes: MedicalProcedure[];
+  pictureFileUuid: string | undefined;
+  pictureFile: File | undefined;
 }

@@ -5,3 +5,4 @@ export * from './medical-procedure.model';
 export * from './meeting.model';
 export * from './practitioner.model';
 export * from './patient.model';
+export * from './file.model';

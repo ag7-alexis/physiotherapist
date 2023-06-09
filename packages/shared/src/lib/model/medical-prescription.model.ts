@@ -1,3 +1,4 @@
+import { File } from './file.model';
 import { Meeting } from './meeting.model';
 import { Model } from './model';
 import { Patient } from './patient.model';
@@ -15,4 +16,7 @@ export interface MedicalPrescription extends Model {
   patient: Patient;
 
   meetings: Meeting[];
+
+  prescriptionPictureFileUuid: string | undefined;
+  prescriptionPictureFile: File | undefined;
 }
