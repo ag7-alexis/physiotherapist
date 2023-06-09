@@ -3,7 +3,16 @@
 import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { MapDirectionsService } from '@angular/google-maps';
 import { DeepPartial, Meeting } from '@physiotherapist/shared';
-import { Observable, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 
 interface Marker {
@@ -26,6 +35,33 @@ export class HomeComponent {
     markers: Marker[];
   }>;
 
+  readonly meetings$ = new BehaviorSubject<DeepPartial<Meeting>[]>([
+    {
+      patient: {
+        lastname: 'TEST',
+        firstname: 'Test',
+        latAddress: 48.756614,
+        lonAddress: 2.5522219,
+      },
+    },
+    {
+      patient: {
+        lastname: 'TEST 2',
+        firstname: 'Test',
+        latAddress: 48.456614,
+        lonAddress: 2.9522219,
+      },
+    },
+    {
+      patient: {
+        lastname: 'TEST 3',
+        firstname: 'Test',
+        latAddress: 48.156614,
+        lonAddress: 2.3522219,
+      },
+    },
+  ]);
+
   option: google.maps.DirectionsRendererOptions = {
     markerOptions: {
       icon: null,
@@ -37,34 +73,7 @@ export class HomeComponent {
   };
 
   constructor(mapDirectionsService: MapDirectionsService) {
-    console.log(this.x);
-    const meetings: DeepPartial<Meeting>[] = [
-      {
-        patient: {
-          lastname: 'TEST',
-          firstname: 'Test',
-          latAddress: 48.756614,
-          lonAddress: 2.5522219,
-        },
-      },
-      {
-        patient: {
-          lastname: 'TEST 2',
-          firstname: 'Test',
-          latAddress: 48.456614,
-          lonAddress: 2.9522219,
-        },
-      },
-      {
-        patient: {
-          lastname: 'TEST 3',
-          firstname: 'Test',
-          latAddress: 48.156614,
-          lonAddress: 2.3522219,
-        },
-      },
-    ];
-    this.directionsResults$ = of(meetings).pipe(
+    this.directionsResults$ = this.meetings$.pipe(
       switchMap((meetingss) => {
         const request: google.maps.DirectionsRequest = {
           destination: { lat: 48.856614, lng: 2.3522219 },
@@ -114,7 +123,19 @@ export class HomeComponent {
   }
 
   log(l: any) {
-    console.log(this.x);
-    console.log(l);
+    this.meetings$.pipe(take(1)).subscribe((val) => {
+      const newArr: DeepPartial<Meeting>[] = [
+        ...val,
+        {
+          patient: {
+            lastname: 'TEST 4',
+            firstname: 'Test',
+            latAddress: l.latLng.lat(),
+            lonAddress: l.latLng.lng(),
+          },
+        },
+      ];
+      this.meetings$.next(newArr);
+    });
   }
 }

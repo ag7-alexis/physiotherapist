@@ -44,7 +44,7 @@ import { MeetingService } from './meeting.service';
   },
 })
 @Controller('meeting')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class MeetingController implements CrudController<MeetingEntity> {
   constructor(public service: MeetingService) {}
 

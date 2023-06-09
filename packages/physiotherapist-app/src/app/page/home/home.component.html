@@ -3,7 +3,7 @@
   width="100vw"
   [center]="center"
   [zoom]="zoom"
-  (mapInitialized)="log('ee')"
+  (mapClick)="log($event)"
 >
   <ng-container *ngIf="directionsResults$ | async as directionsResults">
     <map-directions-renderer
@@ -16,8 +16,6 @@
       #markerElem="mapMarker"
       [position]="marker.position"
       [options]="marker.option"
-      (click)="log('marker')"
-      (mapClick)="openInfo(markerElem, 'eeee')"
     >
     </map-marker>
   </ng-container>

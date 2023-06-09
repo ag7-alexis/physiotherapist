@@ -28,7 +28,7 @@ import { ApiOkResponse } from '@nestjs/swagger';
   },
 })
 @Controller('patient')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class PatientController implements CrudController<PatientEntity> {
   constructor(public service: PatientService) {}
 }

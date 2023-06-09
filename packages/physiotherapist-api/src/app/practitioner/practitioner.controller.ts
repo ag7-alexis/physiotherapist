@@ -45,7 +45,7 @@ import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
   },
 })
 @Controller('practitioner')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class PractitionerController
   implements CrudController<PractitionerEntity>
 {
