@@ -1,4 +1,9 @@
-import { MedicalProcedure, Practitioner, User } from '@physiotherapist/shared';
+import {
+  File,
+  MedicalProcedure,
+  Practitioner,
+  User,
+} from '@physiotherapist/shared';
 import {
   CreationDate,
   Deleted,
@@ -11,12 +16,14 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
 } from 'typeorm';
 import { MedicalProcedureEntity } from './medical-procedure.entity';
 import { UserEntity } from './user.entity';
 import { ApiProperty } from '@nestjsx/crud/lib/crud';
+import { FileEntity } from './file.entity';
 
 @Entity({ name: 'practitioner_pr' })
 export class PractitionerEntity extends BaseEntity implements Practitioner {
@@ -89,6 +96,18 @@ export class PractitionerEntity extends BaseEntity implements Practitioner {
   })
   @JoinColumn({ name: 'pr_user_uuid', referencedColumnName: 'uuid' })
   user: User;
+
+  @ApiProperty()
+  @Column({ name: 'pr_picture_file_uuid', type: 'uuid' })
+  pictureFileUuid: string | undefined;
+
+  @ApiProperty()
+  @ManyToOne(() => FileEntity, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn({
+    name: 'pr_picture_file_uuid',
+    referencedColumnName: 'uuid',
+  })
+  pictureFile: File | undefined;
 
   @ApiProperty()
   @CreationDate(PractitionerEntity.prefix)

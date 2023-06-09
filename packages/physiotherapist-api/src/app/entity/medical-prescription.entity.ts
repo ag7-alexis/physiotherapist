@@ -1,4 +1,9 @@
-import { MedicalPrescription, Meeting, Patient } from '@physiotherapist/shared';
+import {
+  File,
+  MedicalPrescription,
+  Meeting,
+  Patient,
+} from '@physiotherapist/shared';
 import {
   CreationDate,
   Deleted,
@@ -17,6 +22,7 @@ import {
 import { PatientEntity } from './patient.entity';
 import { MeetingEntity } from './meeting.entity';
 import { ApiProperty } from '@nestjsx/crud/lib/crud';
+import { FileEntity } from './file.entity';
 
 @Entity({ name: 'medicalprescription_mpn' })
 export class MedicalPrescriptionEntity
@@ -68,6 +74,18 @@ export class MedicalPrescriptionEntity
     onDelete: 'CASCADE',
   })
   meetings: Meeting[];
+
+  @ApiProperty()
+  @Column({ name: 'mpn_prescription_picture_file_uuid', type: 'uuid' })
+  prescriptionPictureFileUuid: string | undefined;
+
+  @ApiProperty()
+  @ManyToOne(() => FileEntity, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn({
+    name: 'mpn_prescription_picture_file_uuid',
+    referencedColumnName: 'uuid',
+  })
+  prescriptionPictureFile: File | undefined;
 
   @ApiProperty()
   @CreationDate(MedicalPrescriptionEntity.prefix)

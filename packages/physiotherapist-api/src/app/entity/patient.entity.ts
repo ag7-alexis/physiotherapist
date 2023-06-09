@@ -1,4 +1,4 @@
-import { MedicalPrescription, Patient } from '@physiotherapist/shared';
+import { File, MedicalPrescription, Patient } from '@physiotherapist/shared';
 import {
   CreationDate,
   Deleted,
@@ -6,9 +6,17 @@ import {
   UpdateDate,
   Uuid,
 } from '@physiotherapist/shared-nodejs';
-import { BaseEntity, Column, Entity, OneToMany } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { MedicalPrescriptionEntity } from './medical-prescription.entity';
 import { ApiProperty } from '@nestjsx/crud/lib/crud';
+import { FileEntity } from './file.entity';
 
 @Entity({ name: 'patient_pt' })
 export class PatientEntity extends BaseEntity implements Patient {
@@ -68,6 +76,18 @@ export class PatientEntity extends BaseEntity implements Patient {
     onDelete: 'CASCADE',
   })
   medicalPrescriptions: MedicalPrescription[];
+
+  @ApiProperty()
+  @Column({ name: 'pt_picture_file_uuid', type: 'uuid' })
+  pictureFileUuid: string | undefined;
+
+  @ApiProperty()
+  @ManyToOne(() => FileEntity, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn({
+    name: 'pt_picture_file_uuid',
+    referencedColumnName: 'uuid',
+  })
+  pictureFile: File | undefined;
 
   @ApiProperty()
   @CreationDate(PatientEntity.prefix)
